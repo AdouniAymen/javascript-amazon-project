@@ -1,5 +1,5 @@
 import { products } from "../data/products.js";
-import { currencyFormat } from "./utils/money.js";
+import currencyFormat from "./utils/money.js";
 import { cart, updateCart, saveToStorage, totalCartsQuantity } from "./cart.js";
 //display quantity in the bascket
 document.querySelector('.cart-quantity').innerHTML = JSON.parse(localStorage.getItem('cartQuantity')) || ''; 

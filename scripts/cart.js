@@ -30,3 +30,11 @@ export function removeFromCart(productId) {
   saveToStorage();
   return cart;
 }
+///
+export function updateCartDeliveryOption (productId, deliveryOptionId) {
+  let matchingItem = cart.find(item => item.id === productId);
+  if (matchingItem) {
+    matchingItem.deliveryOptionId = deliveryOptionId;
+  };
+  saveToStorage();
+}
