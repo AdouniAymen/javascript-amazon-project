@@ -1,5 +1,5 @@
-export function getProduct(productId) {
-      const matchingproduct = products.find(product => product.id === item.id);
+export function getProduct(itemId) {
+      const matchingproduct = products.find(product => product.id === itemId);
   return matchingproduct;
 }
 

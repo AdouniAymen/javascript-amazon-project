@@ -13,7 +13,8 @@ export function renderOrderSummary() {
     // Generate HTML
     let cartSummary = '';
   cart.forEach((item) => {
-    const matchingproduct = getProduct(productId);
+    const itemId = item.id;
+    const matchingproduct = getProduct(itemId);
       // Generate Delivery Date
       const deliveryOptionId = item.deliveryOptionId; 
       const deliveryOption = deliveryOptions.find(option => option.id === deliveryOptionId);
