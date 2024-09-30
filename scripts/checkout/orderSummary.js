@@ -3,6 +3,7 @@ import { products, getProduct } from "../../data/products.js";
 import currencyFormat from "../utils/money.js";
 import dayJs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import {renderPaymentSummary} from './paymentSummary.js'
 
 export function renderOrderSummary() {
       // display the total item quantity
@@ -141,6 +142,7 @@ export function renderOrderSummary() {
         const { productId, deliveryOptionId } = element.dataset
         updateCartDeliveryOption(productId, deliveryOptionId);
         renderOrderSummary();
+        renderPaymentSummary();
       });
     });
 }
