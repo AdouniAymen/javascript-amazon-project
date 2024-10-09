@@ -1,32 +1,30 @@
 import { cart, totalCartsQuantity, removeFromCart, saveToStorage, updateCartDeliveryOption } from "../cart.js";
-import { products, getProduct } from "../../data/products.js";
+import { getProduct } from "../../data/products.js";
 import currencyFormat from "../utils/money.js";
-import dayJs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
-import {renderPaymentSummary} from './paymentSummary.js'
+import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from './paymentSummary.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 export function renderOrderSummary() {
-      // display the total item quantity
-      const displaycartQuantity = () => {
-        document.querySelector('.return-to-home-link').innerHTML = `${totalCartsQuantity()} items`;
-    }
-    displaycartQuantity();
+
+    // render checkout header
+    renderCheckoutHeader();
+  
     // Generate HTML
-    let cartSummary = '';
-  cart.forEach((item) => {
+    let cartSummary = ''  ;
+    cart.forEach((item) => {
     const itemId = item.id;
-    const matchingproduct = getProduct(itemId);
+      const matchingproduct = getProduct(itemId);
+      
     // Generate Delivery Date
     const deliveryOptionId = item.deliveryOptionId; 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
-    const today = dayJs();
-    const deliveryDay = today.add(deliveryOption.deliveryDays, 'days');
-    const deliveryString = deliveryDay.format('YYYY, MMMM D');
+      calculateDeliveryDate(deliveryOption);      
     //
 
       cartSummary +=`<div class="cart-item-container-${matchingproduct.id}">
                 <div class="delivery-date">
-                  Delivery date: ${deliveryString}
+                  Delivery date: ${calculateDeliveryDate(deliveryOption)}
                   </div>
 
                 <div class="cart-item-details-grid">
@@ -68,9 +66,7 @@ export function renderOrderSummary() {
     function deliveryOptionsHTML(matchingproduct, item) {
       let html = '';
       deliveryOptions.forEach(deliveryOption => {
-        const today = dayJs();
-        const deliveryDay = today.add(deliveryOption.deliveryDays, 'days');
-        const deliveryString = deliveryDay.format('YYYY, MMMM D');
+        calculateDeliveryDate(deliveryOption);
         const deliveryPrice = deliveryOption.priceCents === 0
           ? 'FREE '
           : `$${currencyFormat(deliveryOption.priceCents)} -`;
@@ -85,7 +81,7 @@ export function renderOrderSummary() {
                         name="delivery-option-${matchingproduct.id}">
                       <div>
                         <div class="delivery-option-date">
-                          ${deliveryString}
+                          ${calculateDeliveryDate(deliveryOption)}
                         </div>
                         <div class="delivery-option-price">
                           ${deliveryPrice} Shipping
@@ -134,9 +130,9 @@ export function renderOrderSummary() {
           const itemToUpdate = cart.find(item => item.id === productId);
           if (itemToUpdate) { itemToUpdate.quantity = newQuantity; }
           totalCartsQuantity();
-          document.querySelector('.return-to-home-link').innerHTML = `${totalCartsQuantity()} items`;
+          renderCheckoutHeader();
           saveToStorage();
-        renderPaymentSummary();
+          renderPaymentSummary();
         };
       };
     });  
@@ -147,8 +143,8 @@ export function renderOrderSummary() {
       let productId = event.target.dataset.productId;
       removeFromCart(productId);
       renderPaymentSummary();
-      document.querySelector(`.cart-item-container-${productId}`).remove();
-      displaycartQuantity();
+      renderOrderSummary();
+      renderCheckoutHeader();
     }
   });
 
