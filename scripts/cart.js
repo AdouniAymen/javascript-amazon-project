@@ -1,4 +1,9 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//for jasmin testing
+loadFromStorage();
+export function loadFromStorage() {
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+}
 
 // update cart function
 export const updateCart = (productId, selectValue) => {
@@ -11,7 +16,7 @@ export const updateCart = (productId, selectValue) => {
         deliveryOptionId: '1'
       })
     }
-  
+  saveToStorage();
 }
 
 export function totalCartsQuantity() {
