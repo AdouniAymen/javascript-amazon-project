@@ -1,4 +1,4 @@
-import { cart, totalCartsQuantity, removeFromCart, saveToStorage, updateCartDeliveryOption } from "../cart.js";
+import { cart, totalCartsQuantity, removeFromCart, saveToStorage, updateCartDeliveryOption } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import currencyFormat from "../utils/money.js";
 import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from "../../data/deliveryOptions.js";
@@ -32,10 +32,10 @@ export function renderOrderSummary() {
                     src=${matchingproduct.image}>
 
                   <div class="cart-item-details">
-                    <div class="product-name">
+                    <div class="product-name js-product-name-${matchingproduct.id}">
                       ${matchingproduct.name}
                       </div>
-                      <div class="product-price">
+                      <div class="product-price js-product-price-${matchingproduct.id}">
                       $${currencyFormat(matchingproduct.priceCents)}
                     </div>
                     <div class="product-quantity

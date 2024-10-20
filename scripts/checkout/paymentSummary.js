@@ -1,4 +1,4 @@
-import { cart, totalCartsQuantity } from '../cart.js';
+import { cart, totalCartsQuantity } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import currencyFormat from '../utils/money.js'

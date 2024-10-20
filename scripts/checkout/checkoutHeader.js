@@ -1,4 +1,4 @@
-import { totalCartsQuantity } from "../cart.js";
+import { totalCartsQuantity } from "../../data/cart.js";
 export function renderCheckoutHeader() {
   const checkoutHeaderHTML = `<div class="header-content">
         <div class="checkout-header-left-section">

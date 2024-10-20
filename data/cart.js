@@ -16,7 +16,7 @@ export const updateCart = (productId, selectValue) => {
         deliveryOptionId: '1'
       })
     }
-  saveToStorage();
+  localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 export function totalCartsQuantity() {
