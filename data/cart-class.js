@@ -1,14 +1,14 @@
 class Cart {
 
-  cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
-  localStorageKey;//undefined
+  #localStorageKey;//undefined
+  cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   //for jasmin testing
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || []
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || []
   }
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
   
   // update cart function
@@ -22,7 +22,7 @@ class Cart {
           deliveryOptionId: '1'
         })
       }
-      localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+      localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
     
   totalCartsQuantity() {
