@@ -50,8 +50,8 @@ return cart;
 }
 cart.loadFromStorage();
 businessCart.loadFromStorage();
-const cart = Cart();
-const businessCart = Cart();
+const cart = Cart('cart-oop');
+const businessCart = Cart('business-cart');
 
 console.log(cart);
 console.log(businessCart);
